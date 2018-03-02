@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 
 /**
  *
@@ -103,7 +106,10 @@ public class PowerSquad extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jd_arbol = new javax.swing.JDialog();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        jt_arbol = new javax.swing.JTree();
+        pp_menu = new javax.swing.JPopupMenu();
+        jmi_ver = new javax.swing.JMenuItem();
+        jmi_lider = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         bt_super = new javax.swing.JButton();
         bt_villain = new javax.swing.JButton();
@@ -129,7 +135,7 @@ public class PowerSquad extends javax.swing.JFrame {
 
         jLabel15.setText("Agilidad Mental");
 
-        cb_squadS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo..." }));
+        cb_squadS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elija el Escuadrón..." }));
 
         jl_superheroes.setModel(new DefaultListModel());
         jScrollPane3.setViewportView(jl_superheroes);
@@ -519,8 +525,8 @@ public class PowerSquad extends javax.swing.JFrame {
         );
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Power Squad");
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane5.setViewportView(jTree1);
+        jt_arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane5.setViewportView(jt_arbol);
 
         javax.swing.GroupLayout jd_arbolLayout = new javax.swing.GroupLayout(jd_arbol.getContentPane());
         jd_arbol.getContentPane().setLayout(jd_arbolLayout);
@@ -538,6 +544,12 @@ public class PowerSquad extends javax.swing.JFrame {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
+
+        jmi_ver.setText("Ver Datos");
+        pp_menu.add(jmi_ver);
+
+        jmi_lider.setText("Hacer líder");
+        pp_menu.add(jmi_lider);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Power Squad");
@@ -636,6 +648,26 @@ public class PowerSquad extends javax.swing.JFrame {
         jd_arbol.pack();
         jd_arbol.setLocationRelativeTo(this);
         jd_arbol.setVisible(true);
+        
+        DefaultTreeModel m = (DefaultTreeModel)jt_arbol.getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode)m.getRoot();
+        
+        DefaultMutableTreeNode nodo_squad;
+        
+        nodo_squad = new DefaultMutableTreeNode(
+                new Escuadron(tf_nameSquad.getText(),tf_lugar.getText(),
+                tf_lema.getText(),(String)cb_gang.getSelectedItem()));
+                
+        DefaultMutableTreeNode nodo_hero;
+        
+        nodo_hero = 
+                new DefaultMutableTreeNode(
+                        new Heroe());
+        
+        
+        nodo_squad.add(nodo_hero);
+        raiz.add(nodo_squad);
+        m.reload();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void bt_addHeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_addHeroMouseClicked
@@ -691,7 +723,7 @@ public class PowerSquad extends javax.swing.JFrame {
         
         String nombre,poder,debilidad;
         int fuerza, fisica, mental;
-        Escuadron escuadron;
+        String escuadron;
         
         try{
             
@@ -699,25 +731,28 @@ public class PowerSquad extends javax.swing.JFrame {
             nombre = tf_heroname.getText();
             poder = tf_heropow.getText();
             debilidad = tf_weaknessH.getText();
-            //escuadron = (Escuadron)cb_squadS.getSelectedItem().toString();
+            escuadron = cb_squadS.getSelectedItem().toString();
             fuerza = Integer.parseInt(tf_strH.getText());
             fisica = Integer.parseInt(tf_agilFH.getText());
             mental = Integer.parseInt(tf_agilMH.getText());
             
-            Heroe x = new Heroe(nombre, poder, debilidad, new Escuadron(), fuerza, fisica, mental);
+            Heroe x = new Heroe(nombre, poder, debilidad, escuadron, fuerza, fisica, mental);
             
             
             DefaultListModel modelo = (DefaultListModel)jl_superheroes.getModel();
             modelo.addElement(x);
             
+            jl_superheroes.setModel(modelo);
             tf_heroname.setText("");
             tf_heropow.setText("");
             tf_weaknessH.setText("");
-            cb_gang.setSelectedIndex(0);
+            cb_squadS.setSelectedIndex(0);
             tf_strH.setText("");
             tf_agilFH.setText("");
             tf_agilMH.setText("");
             
+            JOptionPane.showMessageDialog(
+                    jd_squad,"¡Superhéroe agregado con éxito!","¡Éxito",JOptionPane.INFORMATION_MESSAGE);
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(jd_squad, "¡Error!");
@@ -817,7 +852,6 @@ public class PowerSquad extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTree jTree1;
     private javax.swing.JDialog jd_arbol;
     private javax.swing.JDialog jd_squad;
     private javax.swing.JDialog jd_super;
@@ -825,6 +859,10 @@ public class PowerSquad extends javax.swing.JFrame {
     private javax.swing.JList<String> jl_gang;
     private javax.swing.JList<String> jl_squad;
     private javax.swing.JList<String> jl_superheroes;
+    private javax.swing.JMenuItem jmi_lider;
+    private javax.swing.JMenuItem jmi_ver;
+    private javax.swing.JTree jt_arbol;
+    private javax.swing.JPopupMenu pp_menu;
     private javax.swing.JTextField tf_agilFH;
     private javax.swing.JTextField tf_agilMH;
     private javax.swing.JTextField tf_heroname;
@@ -837,6 +875,8 @@ public class PowerSquad extends javax.swing.JFrame {
     private javax.swing.JTextField tf_weaknessH;
     // End of variables declaration//GEN-END:variables
 
+    Escuadron sq_selec;
+    Heroe h;
     ArrayList<Escuadron> squad= new ArrayList();
     ArrayList<Heroe> heroe = new ArrayList();
     ArrayList<Villano> villano = new ArrayList();

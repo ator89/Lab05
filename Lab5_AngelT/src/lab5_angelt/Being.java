@@ -6,10 +6,15 @@ package lab5_angelt;
 public class Being {
     
     protected String nombre, poder, debilidad;
-    protected Escuadron squad;
+    protected String squad;
     protected int fuerza, fisica, mental;
 
-    public Being(String nombre, String poder, String debilidad, Escuadron squad, int fuerza, int fisica, int mental) {
+    public Being() {
+    }
+
+    
+    
+    public Being(String nombre, String poder, String debilidad, String squad, int fuerza, int fisica, int mental) {
         this.nombre = nombre;
         this.poder = poder;
         this.debilidad = debilidad;
@@ -43,11 +48,11 @@ public class Being {
         this.debilidad = debilidad;
     }
 
-    public Escuadron getSquad() {
+    public String getSquad() {
         return squad;
     }
 
-    public void setSquad(Escuadron squad) {
+    public void setSquad(String squad) {
         this.squad = squad;
     }
 

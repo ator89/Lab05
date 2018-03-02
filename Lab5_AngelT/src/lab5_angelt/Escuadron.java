@@ -9,11 +9,10 @@ public class Escuadron {
     
     private String nombre, localidad, lema, tipo;
 
-    private ArrayList<String> miembros = new ArrayList();
+    private ArrayList<Being> miembros = new ArrayList();
 
     public Escuadron() {
     }
-    
     
 
     public Escuadron(String nombre, String localidad, String lema, String tipo) {
@@ -55,11 +54,11 @@ public class Escuadron {
         this.tipo = tipo;
     }
 
-    public ArrayList<String> getMiembros() {
+    public ArrayList<Being> getMiembros() {
         return miembros;
     }
 
-    public void setMiembros(ArrayList<String> miembros) {
+    public void setMiembros(ArrayList<Being> miembros) {
         this.miembros = miembros;
     }
 
