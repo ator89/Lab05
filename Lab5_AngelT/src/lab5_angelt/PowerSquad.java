@@ -6,6 +6,8 @@
 package lab5_angelt;
 
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,7 +48,7 @@ public class PowerSquad extends javax.swing.JFrame {
         jTextField9 = new javax.swing.JTextField();
         jTextField10 = new javax.swing.JTextField();
         jTextField11 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cb_squadS = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList3 = new javax.swing.JList<>();
         jButton4 = new javax.swing.JButton();
@@ -123,7 +125,7 @@ public class PowerSquad extends javax.swing.JFrame {
 
         jLabel15.setText("Agilidad Mental");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo..." }));
+        cb_squadS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo..." }));
 
         jList3.setModel(new DefaultListModel());
         jScrollPane3.setViewportView(jList3);
@@ -163,7 +165,7 @@ public class PowerSquad extends javax.swing.JFrame {
                             .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(cb_squadS, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,7 +203,7 @@ public class PowerSquad extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cb_squadS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -398,6 +400,11 @@ public class PowerSquad extends javax.swing.JFrame {
         bt_delSquad.setText("Eliminar");
 
         bt_addSquad.setText("Agregar");
+        bt_addSquad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_addSquadMouseClicked(evt);
+            }
+        });
 
         jLabel8.setText("Agregar Escuadrones");
 
@@ -509,6 +516,11 @@ public class PowerSquad extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         bt_super.setText("Superhéroes");
+        bt_super.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_superMouseClicked(evt);
+            }
+        });
 
         bt_villain.setText("Villanos");
 
@@ -566,6 +578,19 @@ public class PowerSquad extends javax.swing.JFrame {
         
     }//GEN-LAST:event_bt_squadMouseClicked
 
+    private void bt_addSquadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_addSquadMouseClicked
+        addSquad();
+    }//GEN-LAST:event_bt_addSquadMouseClicked
+
+    private void bt_superMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_superMouseClicked
+        
+        jd_super.setModal(true);
+        jd_super.pack();
+        jd_super.setLocationRelativeTo(this);
+        jd_super.setVisible(true);
+        
+    }//GEN-LAST:event_bt_superMouseClicked
+
     public void addSquad(){
         
         String nombre, lugar, lema, tipo;
@@ -579,7 +604,22 @@ public class PowerSquad extends javax.swing.JFrame {
             
             squad.add(new Escuadron(nombre,lugar,lema,tipo));
             
+            DefaultListModel modsq= (DefaultListModel)jl_squad.getModel();
+            modsq.addElement(squad);
             
+            DefaultComboBoxModel cbmod = (DefaultComboBoxModel)cb_squadS.getModel();
+            cbmod.addElement(squad);
+            
+            
+            jl_squad.setModel(modsq);
+            
+            tf_nameSquad.setText("");
+            tf_lugar.setText("");
+            tf_lema.setText("");
+            cb_gang.setSelectedIndex(0);
+            
+            JOptionPane.showMessageDialog(
+                    jd_squad,"¡Escuadrón agregado con éxito!","¡Éxito",JOptionPane.INFORMATION_MESSAGE);
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(jd_squad, "¡Error!");
@@ -628,13 +668,13 @@ public class PowerSquad extends javax.swing.JFrame {
     private javax.swing.JButton bt_super;
     private javax.swing.JButton bt_villain;
     private javax.swing.JComboBox<String> cb_gang;
+    private javax.swing.JComboBox<String> cb_squadS;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -697,5 +737,7 @@ public class PowerSquad extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     ArrayList<Escuadron> squad= new ArrayList();
+    ArrayList<Heroe> heroe = new ArrayList();
+    ArrayList<Villano> villano = new ArrayList();
 
 }
