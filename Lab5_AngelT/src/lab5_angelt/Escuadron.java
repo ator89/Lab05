@@ -11,6 +11,11 @@ public class Escuadron {
 
     private ArrayList<String> miembros = new ArrayList();
 
+    public Escuadron() {
+    }
+    
+    
+
     public Escuadron(String nombre, String localidad, String lema, String tipo) {
         this.nombre = nombre;
         this.localidad = localidad;
