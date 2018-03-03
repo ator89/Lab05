@@ -526,6 +526,11 @@ public class PowerSquad extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Power Squad");
         jt_arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jt_arbol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_arbolMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(jt_arbol);
 
         javax.swing.GroupLayout jd_arbolLayout = new javax.swing.GroupLayout(jd_arbol.getContentPane());
@@ -680,6 +685,27 @@ public class PowerSquad extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_bt_addHeroMouseClicked
+
+    private void jt_arbolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_arbolMouseClicked
+        
+        if (evt.isMetaDown()){
+            
+            int row = jt_arbol.getClosestRowForLocation(evt.getX(), evt.getY());
+            jt_arbol.setSelectionRow(row);
+            
+            Object v1=
+                    jt_arbol.getSelectionPath().getLastPathComponent();
+            nodo_seleccionado = (DefaultMutableTreeNode) v1;
+            
+            if (nodo_seleccionado.getUserObject() instanceof Heroe){
+                
+                heroe_seleccionado = (Heroe) nodo_seleccionado.getUserObject();
+                pp_menu.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+            
+        }
+        
+    }//GEN-LAST:event_jt_arbolMouseClicked
 
     public void addSquad(){
         
@@ -875,8 +901,11 @@ public class PowerSquad extends javax.swing.JFrame {
     private javax.swing.JTextField tf_weaknessH;
     // End of variables declaration//GEN-END:variables
 
+    DefaultMutableTreeNode nodo_seleccionado;
+    
     Escuadron sq_selec;
-    Heroe h;
+    Heroe heroe_seleccionado;
+    
     ArrayList<Escuadron> squad= new ArrayList();
     ArrayList<Heroe> heroe = new ArrayList();
     ArrayList<Villano> villano = new ArrayList();
