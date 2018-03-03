@@ -656,7 +656,7 @@ public class PowerSquad extends javax.swing.JFrame {
         
         DefaultTreeModel m = (DefaultTreeModel)jt_arbol.getModel();
         DefaultMutableTreeNode raiz = (DefaultMutableTreeNode)m.getRoot();
-        
+        raiz.removeAllChildren();
         DefaultMutableTreeNode nodo_squad;
         
         nodo_squad = new DefaultMutableTreeNode(
@@ -665,9 +665,20 @@ public class PowerSquad extends javax.swing.JFrame {
                 
         DefaultMutableTreeNode nodo_hero;
         
+        /*nacionalidad =
+                    //de la persona que esta seleccionada en la lista se captura la propiedad
+                    ((Persona)modeloLista.get(jl_personas.getSelectedIndex())).getNacionalidad();
+        */
+        int fuerza;
+        
+        
         nodo_hero = 
                 new DefaultMutableTreeNode(
-                        new Heroe());
+                        new Heroe(tf_heroname.getText(),tf_heropow.getText(),
+                        tf_weaknessH.getText(),cb_squadS.getSelectedItem().toString(),
+                        0,
+                        0,
+                        0));
         
         
         nodo_squad.add(nodo_hero);

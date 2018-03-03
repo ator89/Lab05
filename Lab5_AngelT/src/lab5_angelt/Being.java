@@ -82,7 +82,7 @@ public class Being {
 
     @Override
     public String toString() {
-        return "Being{" + "nombre=" + nombre + ", poder=" + poder + '}';
+        return nombre + " " + poder;
     }
 
 
